@@ -382,7 +382,7 @@ canvas.confetti{position:fixed;inset:0;z-index:30;pointer-events:none;}
   <div class="page" id="pageCoupons">
     <div class="coupon-header">
       <h1>Chloe's <span class="y">29th</span> Coupons</h1>
-      <p>Redeem any of these throughout the day. Tap to redeem and I'll be notified 🌻</p>
+      <p>Redeem any of these throughout the day. Tap to redeem and I'll be&nbsp;notified&nbsp;🌻</p>
     </div>
     <div class="coupon-grid" id="couponGrid"></div>
   </div>
@@ -390,7 +390,7 @@ canvas.confetti{position:fixed;inset:0;z-index:30;pointer-events:none;}
   <div class="page" id="pageSurprises" style="display:none">
     <div class="coupon-header">
       <h1><span class="y">Today's</span> Plan</h1>
-      <p>Our plan for the day. Tap to unlock each one 🌻</p>
+      <p>Our plan for the day 🌻</p>
     </div>
     <div class="itinerary" id="revealGrid"></div>
   </div>
@@ -445,7 +445,7 @@ const COUPONS = [
   { id:"massage",   emoji:"💆‍♀️", name:"At-Home Massage",    qty:null,        desc:"Shaaanana" },
   { id:"footrub",   emoji:"🦶",   name:"Foot Rub",           qty:null,        desc:"DAYO!" },
   { id:"kiss",      emoji:"💋",   name:"Kiss",               qty:"unlimited", desc:"Unlimited" },
-  { id:"treat",     emoji:"🥐",   name:"A Little Treat",     qty:null,        desc:"Yummmmm" },
+  { id:"treat",     emoji:"🥐",   name:"Snack please!",      qty:null,        desc:"Yummmmm" },
   { id:"latte",     emoji:"☕",   name:"Iced Latte",         qty:null,        desc:"Double shot" },
   { id:"slowdance", emoji:"💃",   name:"Kitchen Slow Dance", qty:null,        desc:"With suh" },
   { id:"cuddle",    emoji:"🥄",   name:"Cuddle 'Til We Fall Asleep", qty:null, desc:"I promise this time" },
@@ -456,7 +456,7 @@ const COUPONS = [
   { id:"pickup",    emoji:"🥐",   name:"Pick Up a Little Treat", type:"reveal" },
   { id:"work",      emoji:"💻",   name:"Work",                 type:"reveal" },
   { id:"happyhour", emoji:"🍷",   name:"Birthday Happy Hour",  type:"reveal" },
-  { id:"dinner",    emoji:"🍽️",   name:"Tonight's Dinner",     type:"reveal", action:"Tap to reveal where",
+  { id:"dinner",    emoji:"🍽️",   name:"Tonight's Dinner",     type:"reveal", action:"Tap to reveal where", noNotify:true,
     reveal:"Dinner tonight at <b>Uchi</b> 🍣<br><br>Reservation at <b>6:00pm</b> 💛" },
   { id:"sweettreat",emoji:"🍨",   name:"Sweet Treat at Home",  type:"reveal" },
 ];
@@ -715,7 +715,7 @@ function openReveal(c){
     store.opened[c.id]=true;
     store.log.unshift({ name:c.name, emoji:c.emoji, t:new Date().toISOString(), kind:"unlocked" });
     save();
-    sendPush(`👀 Chloe unlocked: ${c.name} ${c.emoji}`);
+    if(!c.noNotify) sendPush(`👀 Chloe unlocked: ${c.name} ${c.emoji}`);
     if(navigator.vibrate) navigator.vibrate(35);
     burst(120);
   }
