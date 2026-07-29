@@ -106,7 +106,7 @@ body{
   animation:popIn .7s cubic-bezier(.2,1.4,.4,1) both;
 }
 .hb-photo{
-  margin-top:22px;width:min(62vw,240px);aspect-ratio:3/4;object-fit:cover;
+  margin-top:16px;width:min(52vw,200px);aspect-ratio:3/4;object-fit:cover;
   border-radius:14px;border:6px solid #fff6e2;
   box-shadow:0 16px 34px rgba(0,0,0,.4);transform:rotate(-3deg);
   animation:popIn .7s cubic-bezier(.2,1.4,.4,1) both;
@@ -382,7 +382,7 @@ canvas.confetti{position:fixed;inset:0;z-index:30;pointer-events:none;}
   <div class="page" id="pageCoupons">
     <div class="coupon-header">
       <h1>Chloe's <span class="y">29th</span> Coupons</h1>
-      <p>Redeem any of these throughout the day. Just tap to redeem so that I get notified 🌻</p>
+      <p>Redeem any of these throughout the day. Tap to redeem and I'll be notified 🌻</p>
     </div>
     <div class="coupon-grid" id="couponGrid"></div>
   </div>
@@ -680,6 +680,7 @@ function doRedeem(c){
   const stamp = new Date();
   store.log.unshift({ name:c.name, emoji:c.emoji, t:stamp.toISOString() });
   save();
+  renderCoupons();
 
   let pushText = `🎟️ Chloe redeemed: ${c.name} ${c.emoji}`;
   if(typeof c.qty === "number"){
@@ -693,8 +694,7 @@ function doRedeem(c){
   modalCard.innerHTML=`
     <div class="done-emoji">${c.emoji}</div>
     <h2>Redeemed! 💛</h2>
-    <p>${c.name} is all yours.</p>
-    <div class="m-note">Enjoy it, birthday girl 🌻</div>
+    <div class="m-note">Enjoy, my love 🌻</div>
     <div class="m-actions"><button class="btn" id="closeDone">Yay! ✨</button></div>`;
   document.getElementById("closeDone").onclick=()=>{ closeModal(); renderCoupons(); };
 }
@@ -745,7 +745,7 @@ function openAdmin(){
 document.getElementById("adminClose").onclick=()=>admin.classList.remove("show");
 document.getElementById("adminReset").onclick=()=>{
   if(confirm("Reset all coupons and the log?")){
-    store.redeemed={}; store.log=[]; save(); renderCoupons();
+    store.redeemed={}; store.opened={}; store.log=[]; save(); renderCoupons();
     admin.classList.remove("show");
   }
 };
